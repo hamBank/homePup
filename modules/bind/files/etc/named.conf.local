@@ -1,0 +1,35 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "my.hups.net" {
+	type master;
+	file "/var/lib/bind/my.hups.net.hosts";
+	};
+zone "1.168.192.in-addr.arpa" {
+	type master;
+	file "/var/lib/bind/192.168.1.rev";
+	};
+
+   server fd81:ec6c:bd62::/48 { bogus no; }; // site ULA prefix
+   server ::/0 { bogus yes; };
+
+key "TRANSFER" {
+	algorithm hmac-md5;
+	secret "8xFCrDnhYTa3dzFL5i3f0Q==";
+};
+include "/etc/bind/rndc.key";
+server 192.168.1.1 {
+        keys {
+        TRANSFER;
+    };
+};
+server 192.168.1.10 {
+        keys {
+        TRANSFER;
+    };
+};

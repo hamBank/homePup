@@ -1,0 +1,9 @@
+#deb http://debmir.my.hups.net/debian/ squeeze main contrib non-free
+deb http://ftp.iinet.net.au/debian/debian/ squeeze main contrib non-free
+#deb-src http://ftp.iinet.net.au/debian/debian/ squeeze main
+
+#deb http://security.debian.org/ squeeze/updates main
+#deb-src http://security.debian.org/ squeeze/updates main
+
+deb http://ftp.iinet.net.au/debian/debian/ squeeze-updates main
+#deb-src http://ftp.iinet.net.au/debian/debian/ squeeze-updates main

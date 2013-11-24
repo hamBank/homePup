@@ -1,0 +1,121 @@
+class nagios::nrpe {
+
+  case $operatingsystem {
+    "freebsd": {
+      $nrpeservice = "nrpe2"
+      $nrpepattern = "nrpe2"
+      $nrpepackage = "nrpe2"
+      $nrpedir     = "/usr/local/etc"
+      $nagiosuser  = "root"
+      $nagiosgroup = "wheel"
+      $pluginsdir  = "/usr/local/libexec/nagios"
+      $sudopath    = "/usr/local/bin"
+    }
+    default: {
+      $nrpeservice = "nagios-nrpe-server"
+      $nrpepattern = "nrpe"
+      $nrpepackage = "nagios-nrpe-server"
+      $nrpedir     = "/etc/nagios"
+      $nagiosuser  = "nagios"
+      $nagiosgroup = "nagios"
+      $pluginsdir  = "/usr/lib/nagios/plugins"
+      $sudopath    = "/usr/bin"
+    }
+  }
+
+  file { $pluginsdir:
+    mode    => "755",
+    require => Package["nagios-plugins"],
+    source  => "puppet:///files/nagios/client-plugins/",
+    purge   => false,
+    recurse => true,
+    ignore => ".svn",
+  }
+
+  file { "$nrpedir/nrpe.cfg":
+    mode    => "644",
+    owner   => $nagiosuser,
+    group   => $nagiosgroup,
+    content => template("nagios/nrpe.cfg"),
+    require => Package[$nrpepackage],
+  }
+
+  package {
+    $nrpepackage: ensure => present;
+    "nagios-plugins": ensure => present;
+  }
+
+  service { "$nrpeservice":
+    ensure    => running,
+    enable    => true,
+    pattern   => "$nrpepattern",
+    subscribe => File["$nrpedir/nrpe.cfg"];
+  }
+}
+
+class nagios::server {
+
+  file { "/var/log/nagios3/rw":
+    ensure  => directory,
+    owner   => "nagios",
+    group   => "www-data",
+    require => [ Package["nagios3"], Package["apache2"] ],
+    mode    => "2770",
+  }
+
+  file { "/usr/lib/nagios/plugins/check_dhcp":
+    mode => "4755",
+  }
+
+  file { "/etc/nagios3":
+    mode    => "644",
+    source  => "puppet:///files/nagios/nagios",
+    recurse => true,
+    purge   => true,
+    force   => true,
+    ignore  => [ ".svn", "nrpe.cfg" ],
+    require => Package["nagios3"],
+  }
+
+  file { "/usr/share/nagios3/htdocs/images/logos":
+    mode    => "644",
+    source  => "puppet:///files/nagios/logos",
+    recurse => true,
+    purge   => false,
+    require => Package["nagios3"],
+    ignore => ".svn",
+  }
+
+  file { "/etc/default/nagios3":
+    mode    => "644",
+    source  => "puppet:///files/nagios/default.$hostname",
+    require => Package["nagios3"],
+  }
+
+  user { "www-data":
+    ensure     => present,
+    groups     => "nagios",
+    membership => minimum,
+    require    => [ Package["nagios3"], Package["apache2"] ],
+  }
+
+  package {
+    "apache2":              ensure => present;
+  }
+
+  package {
+    "nagios-nrpe-plugin":              ensure => present;
+    "nagios3":                         ensure => present;
+    "nagios3-common":                  ensure => present;
+    "nagios3-doc":                     ensure => present;
+  }
+
+  service { "nagios3":
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    subscribe  => [ File["/etc/nagios3"], File["/etc/default/nagios3"] ],
+  }
+
+}
+

@@ -1,0 +1,1 @@
+Acquire::http { Proxy "http://debmir:3142"; };

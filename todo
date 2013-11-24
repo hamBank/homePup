@@ -1,0 +1,12 @@
+crm
+
+configure
+primitive drbd_mynag ocf:linbit:drbd params drbd_resource="sys_mynag" op monitor interval="15s"
+ms ms_drbd_mynag drbd_mynag meta master-max="1" master-node-max="1" clone-max="2" clone-node-max="1" notify="true"
+primitive fs_mynag ocf:heartbeat:Filesystem params device="/dev/drbd/by-res/mynag" directory="/var/lib/mynag" fstype="ext3"
+
+group mynag fs_mynag ip_mynag mynagd
+colocation mynag_on_drbd inf: mynag ms_drbd_mynag:Master
+order mynag_after_drbd inf: ms_drbd_mynag:promote mynag:start
+commit
+exit

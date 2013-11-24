@@ -1,0 +1,20 @@
+$ttl 38400
+1.168.192.in-addr.arpa.	IN	SOA	filer.my.hups.net. ajw.pobox.com. (
+			1299273132
+			10800
+			3600
+			604800
+			38400 )
+1.168.192.in-addr.arpa.	IN	NS	filer.my.hups.net.
+26.1.168.192.in-addr.arpa.	IN	PTR	squidam.my.hups.net.
+88.1.168.192.in-addr.arpa.	IN	PTR	filer.my.hups.net.
+89.1.168.192.in-addr.arpa.	IN	PTR	utorman.my.hups.net.
+90.1.168.192.in-addr.arpa.	IN	PTR	medsam.my.hups.net.
+223.1.168.192.in-addr.arpa.	IN	PTR	wks2.my.hups.net.
+43.1.168.192.in-addr.arpa.	IN	PTR	debmir.my.hups.net.
+47.1.168.192.in-addr.arpa.	IN	PTR	rd2s.my.hups.net.
+48.1.168.192.in-addr.arpa.	IN	PTR	vein.my.hups.net.
+84.1.168.192.in-addr.arpa.	IN	PTR	pupetm.my.hups.net.
+44.1.168.192.in-addr.arpa.	IN	PTR	tvop.my.hups.net.
+47.1.168.192.in-addr.arpa.	IN	PTR	rd2s.my.hups.net.
+42.1.168.192.in-addr.arpa.	IN	PTR	krbmas.my.hups.net.

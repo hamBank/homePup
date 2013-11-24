@@ -1,0 +1,37 @@
+$ttl 38400
+my.hups.net.	IN	SOA	filer.my.hups.net. foobie.gmail.com. (
+			1262225435
+			10800
+			3600
+			604800
+			38400 )
+my.hups.net.	IN	NS	filer.my.hups.net.
+filer.my.hups.net.	IN	A	192.168.1.88
+xen1.my.hups.net.	IN	A	192.168.1.28
+life.my.hups.net.	IN	A	192.168.1.1
+squidam.my.hups.net.	IN	A	192.168.1.26
+photon.my.hups.net.	IN	A	192.168.1.34
+phomas.my.hups.net.	IN	A	192.168.1.41
+bode.my.hups.net.	IN	A	155.187.51.98
+smtp.my.hups.net.	IN	CNAME	filer
+ubdes.my.hups.net.	IN	A	192.168.1.199
+antopc.my.hups.net.	IN	A	155.187.171.104
+fire.my.hups.net.	IN	CNAME	life
+puppet.my.hups.net.	IN	A	192.168.1.84
+puppetmaster.my.hups.net.	IN	CNAME	puppet
+puppetm.my.hups.net.	IN	CNAME	puppet
+xen3.my.hups.net.	IN	A	192.168.1.35
+xen4.my.hups.net.	IN	A	192.168.1.37
+nagios.my.hups.net.	IN	A	192.168.1.55
+debmir.my.hups.net.	IN	A	192.168.1.43
+pupetm.my.hups.net.	IN	A	192.168.1.84
+wks2.my.hups.net.	IN	A	192.168.1.223
+tvop.my.hups.net.	IN	A	192.168.1.44
+rd2s.my.hups.net.	IN	A	192.168.1.47
+vein.my.hups.net.	IN	A	192.168.1.48
+krbmas.my.hups.net.	IN	A	192.168.1.42
+medsam.my.hups.net.	IN	A	192.168.1.90
+utorman.my.hups.net.	IN	A	192.168.1.89
+catmon.my.hups.net.	IN	A	192.168.1.31
+ut.my.hups.net.		IN	CNAME	utorman.my.hups.net.
+cacti.my.hups.net.		IN	CNAME	catmon.my.hups.net.
